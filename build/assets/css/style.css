@@ -58,4 +58,6 @@ header {
 
 footer {
   width: 100%;
-  background: blue; }
+  height: 400px;
+  background: red;
+  font-family: Georgia; }
