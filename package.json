@@ -1,0 +1,19 @@
+{
+  "name": "goodfellas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dericka/Goodfellas.git"
+  },
+  "author": "derick alfaro, michael emmanuel, matt stein, wahler",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dericka/Goodfellas/issues"
+  },
+  "homepage": "https://github.com/dericka/Goodfellas#readme"
+}
