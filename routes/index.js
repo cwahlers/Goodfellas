@@ -2,19 +2,19 @@ var express = require('express')
 var router = express.Router()
 
 router.get('/', (req, res) => {
-  res.render('home', {css:[process.cwd + 'style.css']});
+  res.render('home', {title: 'Home', css:['style.css']})
 })
 
 router.get('/login', (req, res) => {
-    res.render('login')
+    res.render('login', {title: 'Login', css:['login.css']})
 })
 
 router.get('/portal', (req, res) => {
-    res.render('portal')
+    res.render('portal', {title: 'Portal', css:['portal.css']})
 })
 
 router.post('/register', (req, res) => {
-    res.render('register')
+    res.render('register', {title: 'Register', css:['register.css']})
 })
 
 
