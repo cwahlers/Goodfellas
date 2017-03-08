@@ -1,18 +1,24 @@
-'use strict';
+'use strict'
 var express = require('express')
+var exphbs  = require('express-handlebars')
 var serveStatic = require('serve-static')
+var passport = require('passport') //user auth
+var morgan = require('morgan')
 var path = require('path')
 //var mysql = require('mysql')
 
-//user auth
-//having routes controllers
+var routes = require('./routes/index.js')
 
 var app = express()
 
-//app.use(serveStatic(path.join(__dirname, 'build')))
+app.engine('handlebars', exphbs({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
 
-app.get('/', function(req, res){
-  res.send('hello world');
-});
 
-app.listen(3000);
+app.use(morgan('dev'))
+app.use('/', routes)
+
+
+app.listen(3000)
+
+module.exports = app
