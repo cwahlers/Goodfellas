@@ -14,7 +14,10 @@
 <body>
 
   {{{body}}}
-  <script src="assets/js/main.js"></script>
+
+  {{#each js}}
+    <script src="assets/js/{{this}}"></script>
+  {{/each}}
 </body>
 
 </html>
