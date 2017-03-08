@@ -50,14 +50,20 @@ table {
   box-sizing: border-box; }
 
 header {
-  background: red;
   width: 100%;
-  height: 500px;
+  height: 600px;
   background-image: url("../img/books.jpg");
-  font-size: 12px; }
+  background-size: cover; }
+
+nav {
+  font-family: 'Baloo Bhaina', cursive;
+  color: white;
+  font-size: 5rem; }
 
 footer {
   width: 100%;
-  height: 400px;
-  background: red;
-  font-family: Georgia; }
+  height: 200px;
+  background: grey;
+  font-family: Georgia;
+  display: -ms-flexbox;
+  display: flex; }
