@@ -6,6 +6,7 @@ const pump = require('pump')
 const autoprefixer = require('gulp-autoprefixer')
 const imagemin = require('gulp-imagemin')
 const eslint = require('gulp-eslint')
+const livereload = require('gulp-livereload')
 
 gulp.task('sass', () => {
     let home = './src/assets/sass/home/style.sass'
@@ -30,23 +31,38 @@ gulp.task('sass:watch', () => {
 })
 
 gulp.task('lint', () => {
-    return gulp.src(['**/*.js', '!node_modules/**'])
-        .pipe(eslint())
-        .pipe(eslint.format())
-        .pipe(eslint.failAfterError())
+    return gulp.src(['**/*.js', '!node_modules/**']).pipe(eslint()).pipe(eslint.format()).pipe(eslint.failAfterError())
 })
 
 gulp.task('compress', cb => {
     pump([
-        gulp.src('./src/**/*.js'), uglify(), gulp.dest('./build')
+        gulp.src('./src/**/*.js'), uglify({output:{semicolons:false,quote_style: 3}}), gulp.dest('./build')
     ], cb)
 })
 
 gulp.task('img', () => gulp.src('./src/assets/img/*').pipe(imagemin()).pipe(gulp.dest('./build/assets/img')))
+
+gulp.task('watch', function() {
+
+    // Watch .scss files
+    gulp.watch('src/assets/sass/**/*.sass', ['sass'])
+
+    // Watch .js files
+    gulp.watch('*.js', ['lint', 'compress'])
+
+    // Watch image files
+    gulp.watch('src/assets/img/**/*', ['img'])
+
+    livereload.listen()
+    gulp.watch(['build/**']).on('change', livereload.changed)
+
+})
 
 gulp.task('default', [
     'sass',
     'sass:watch',
     'img',
     'lint',
-    'compress'])
+    'compress',
+    'watch'
+])

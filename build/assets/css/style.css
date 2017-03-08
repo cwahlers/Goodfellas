@@ -53,6 +53,9 @@ a {
   text-decoration: none;
   color: white; }
 
+body {
+  height: 100%; }
+
 header {
   width: 100%;
   margin-top: -90px;
@@ -64,7 +67,7 @@ nav {
   font-family: 'Baloo Bhaina', cursive;
   color: white;
   font-size: 6rem;
-  padding-left: 15px; }
+  padding: 200px 0 0 20px; }
 
 footer {
   width: 100%;
