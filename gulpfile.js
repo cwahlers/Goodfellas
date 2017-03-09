@@ -61,7 +61,6 @@ gulp.task('watch', function() {
 gulp.task('default', [
     'sass',
     'sass:watch',
-    'img',
     'lint',
     'compress',
     'watch'
