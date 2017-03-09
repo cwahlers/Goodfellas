@@ -60,18 +60,51 @@ body {
 #text {
   width: 35%;
   height: 100%;
-  background: #5f84e9; }
+  background: #5f84e9;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -ms-flex-align: center;
+  align-items: center; }
 
 header {
   width: 100%;
   display: -ms-inline-flexbox;
   display: inline-flex;
   margin-top: -50px;
-  height: 600px;
+  height: 530px;
   background-image: url("../img/books.jpg");
   background-size: 900px;
   background-position: top right;
   filter: grayscale(25%) opacity(95%); }
+
+form div {
+  padding-top: 10px; }
+  form div input {
+    width: 230px;
+    height: 25px;
+    outline: none;
+    border-radius: 3px;
+    border: 0px; }
+
+form button {
+  margin-top: 10px;
+  width: 230px;
+  background: #f9fafc;
+  cursor: pointer;
+  height: 30px;
+  border-radius: 3px;
+  outline: none;
+  border: 0px; }
+
+#logo {
+  font-family: 'Source Sans Pro';
+  font-size: 3rem;
+  margin-top: -100px;
+  padding-bottom: 100px; }
 
 nav {
   font-weight: 700;
