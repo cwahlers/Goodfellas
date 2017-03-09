@@ -1,8 +1,8 @@
-"use strict"
-const fs         = require("fs")
-const path       = require("path")
-const Sequelize  = require("sequelize")
-const env        = process.env.NODE_ENV || "development"
+'use strict'
+const fs         = require('fs')
+const path       = require('path')
+const Sequelize  = require('sequelize')
+const env        = process.env.NODE_ENV || 'development'
 const config     = require(path.join(__dirname, '..', 'config', 'config.json'))[env]
 const sequelize  = new Sequelize(config.database, config.username, config.password, config)
 const db         = {}
@@ -10,19 +10,19 @@ const db         = {}
 fs
     .readdirSync(__dirname)
     .filter(file => {
-        return (file.indexOf(".") !== 0) && (file !== 'index.js')
+        return (file.indexOf('.') !== 0) && (file !== 'index.js')
     })
     .forEach(file => {
         var model = sequelize.import(path.join(__dirname, file))
         db[model.name] = model
-        console.log(model.name + 'model.name')
     })
 
 Object.keys(db).forEach(modelName => {
-    if ("associate" in db[modelName]) {
+    if ('associate' in db[modelName]) {
         db[modelName].associate(db)
-        console.log(modelName + 'object.keys modelName')
-        console.log(db[modelName] + 'object.keys db[modelName]')
+        console.log(modelName + ' | object.keys modelName')
+        console.log(db[modelName] + ' | object.keys db[modelName]')
+        console.log(db + ' | db')
     }
 })
 
