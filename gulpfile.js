@@ -42,7 +42,7 @@ gulp.task('compress', cb => {
 
 gulp.task('img', () => gulp.src('./src/assets/img/*').pipe(imagemin()).pipe(gulp.dest('./build/assets/img')))
 
-gulp.task('watch', function() {
+gulp.task('watch', () => {
 
     // Watch .scss files
     gulp.watch('src/assets/sass/**/*.sass', ['sass'])

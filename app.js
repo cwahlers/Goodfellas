@@ -12,13 +12,8 @@ const morgan          = require('morgan')
 const flash           = require('connect-flash')
 const port            = process.env.PORT || 8080
 const env             = require('dotenv').load()
-const authRoute       = require('./routes/auth')(app)
+const routes          = require('./routes/routes')
 const models          = require('./models/index')
-
-
-models.sequelize.sync()
-.then(() => console.log('Nice! Database looks fine'))
-.catch(err => console.log(err, 'Something went wrong with the Database Update!'))
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -38,8 +33,11 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
+models.sequelize.sync()
+.then(() => console.log('Nice! Database looks fine'))
+.catch(err => console.log(err, 'Something went wrong with the Database Update!'))
 
-//app.use('/', routes)
+app.use('/', routes)
 
 app.listen(port)
 
