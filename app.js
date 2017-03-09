@@ -1,24 +1,30 @@
 'use strict'
-var express         = require('express')
-var exphbs          = require('express-handlebars')
-var bodyParser      = require('body-parser')
-var cookieParser    = require('cookie-parser')
-var session         = require('express-session')
-var passport        = require('passport')
-var LocalStrategy   = require('passport-local').Strategy
-var morgan          = require('morgan')
-var flash           = require('connect-flash')
-var path            = require('path')
-var mysql           = require('mysql')
-var port            = process.env.PORT || 8080
-var routes          = require('./routes/index.js')
+const path            = require('path')
+const express         = require('express')
+const app             = express()
+const exphbs          = require('express-handlebars')
+const bodyParser      = require('body-parser')
+const cookieParser    = require('cookie-parser')
+const session         = require('express-session')
+const passport        = require('passport')
+const LocalStrategy   = require('passport-local').Strategy
+const morgan          = require('morgan')
+const flash           = require('connect-flash')
+const port            = process.env.PORT || 8080
+const env             = require('dotenv').load()
+const authRoute       = require('./routes/auth')(app)
+const models          = require('./models/index')
 
-var app = express()
+
+models.sequelize.sync()
+.then(() => console.log('Nice! Database looks fine'))
+.catch(err => console.log(err, 'Something went wrong with the Database Update!'))
+
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
 app.use(morgan('dev'))
-app.use(cookieParser());
+app.use(cookieParser())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, '/build')))
@@ -32,7 +38,8 @@ app.use(passport.initialize())
 app.use(passport.session())
 app.use(flash())
 
-app.use('/', routes)
+
+//app.use('/', routes)
 
 app.listen(port)
 
