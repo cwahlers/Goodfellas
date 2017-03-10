@@ -7,13 +7,13 @@ const bodyParser      = require('body-parser')
 const cookieParser    = require('cookie-parser')
 const session         = require('express-session')
 const passport        = require('passport')
-const LocalStrategy   = require('passport-local').Strategy
 const morgan          = require('morgan')
 const flash           = require('connect-flash')
 const port            = process.env.PORT || 8080
 const env             = require('dotenv').load()
-const routes          = require('./routes/routes')
 const models          = require('./models/index')
+const routes          = require('./routes/routes')
+//require('./config/passport.js')(passport, models.user)
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
@@ -25,9 +25,9 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, '/build')))
 
 app.use(session({
-  secret: 'goodfellas',
-  resave: true,
-  saveUninitialized: true
+    secret: 'goodfellas',
+    resave: true,
+    saveUninitialized: true
 }))
 app.use(passport.initialize())
 app.use(passport.session())
