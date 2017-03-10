@@ -5,6 +5,8 @@ module.exports = function(passport, user) {
 
     const User = user
     const LocalStrategy = require('passport-local').Strategy
+    const FacebookStrategy = require('passport-facebook').Strategy
+    const GoogleStrategy = require('passport-google-oauth20').Strategy
 
     passport.serializeUser((user, done) => {
         done(null, user.id)
@@ -63,9 +65,9 @@ module.exports = function(passport, user) {
         passReqToCallback: true
     }, (req, email, password, done) => {
 
-      function isValidPassword(userPass, passwordInput){
-        return bCrypt.compareSync(passwordInput, userPass)
-      }
+        function isValidPassword(userPass, passwordInput) {
+            return bCrypt.compareSync(passwordInput, userPass)
+        }
 
         User.findOne({
             where: {
@@ -90,5 +92,27 @@ module.exports = function(passport, user) {
         })
 
     }))
+
+    passport.use(new FacebookStrategy({
+        clientID: 771688802985373,
+        clientSecret: '74e5824642c707d97b08002c93a15fcc',
+        callbackURL: "http://localhost:3000/auth/facebook/callback"
+    }, (accessToken, refreshToken, profile, cb) => {
+      User.findOrCreate({facebookId: profile.id}, (err, user) => {
+        return cb(err, user)
+      })
+    }))
+
+    passport.use(new GoogleStrategy({
+    clientID: GOOGLE_CLIENT_ID,
+    clientSecret: GOOGLE_CLIENT_SECRET,
+    callbackURL: "http://www.example.com/auth/google/callback"
+  },
+  function(accessToken, refreshToken, profile, cb) {
+    User.findOrCreate({ googleId: profile.id }, function (err, user) {
+      return cb(err, user);
+    })
+  }
+))
 
 } //module.exports

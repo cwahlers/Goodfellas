@@ -13,7 +13,6 @@ const port            = process.env.PORT || 8080
 const env             = require('dotenv').load()
 const models          = require('./models/index')
 const routes          = require('./routes/routes')
-//require('./config/passport.js')(passport, models.user)
 
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')

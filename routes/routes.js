@@ -12,6 +12,16 @@ router.get('/login', Controllers.login)
 router.get('/portal', Controllers.isLoggedIn, Controllers.portal)
 router.get('/logout', Controllers.logout)
 
+router.get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email','user_friends'] }))
+
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {successRedirect: '/portal', failureRedirect: '/login'}))
+
+app.get('/auth/google',
+  passport.authenticate('google', { scope: ['profile'] }));
+
+app.get('/auth/google/callback',
+  passport.authenticate('google', { successRedirect: '/portal',failureRedirect: '/login' }))
+
 router.post('/register', passport.authenticate('local-register', {
     successRedirect: '/portal',
     failureRedirect: '/register'
