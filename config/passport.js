@@ -3,10 +3,10 @@ const bCrypt = require('bcrypt-nodejs')
 
 module.exports = function(passport, user) {
 
-    const User = user
     const LocalStrategy = require('passport-local').Strategy
     const FacebookStrategy = require('passport-facebook').Strategy
     const GoogleStrategy = require('passport-google-oauth20').Strategy
+    const User = user
 
     passport.serializeUser((user, done) => {
         done(null, user.id)
@@ -56,8 +56,8 @@ module.exports = function(passport, user) {
                     }
                 })
             }
-        }) // User.then
-    })) //passport.use local-register
+        })
+    }))
 
     passport.use('local-login', new LocalStrategy({
         usernameField: 'email',
@@ -75,6 +75,7 @@ module.exports = function(passport, user) {
             }
         }).then(user => {
             if (!user) {
+                console.log('user not found')
                 return done(null, false, {message: 'Email does not exist'})
             }
 
@@ -96,23 +97,60 @@ module.exports = function(passport, user) {
     passport.use(new FacebookStrategy({
         clientID: 771688802985373,
         clientSecret: '74e5824642c707d97b08002c93a15fcc',
-        callbackURL: "http://localhost:3000/auth/facebook/callback"
+        callbackURL: "http://localhost:8080/auth/facebook/callback",
+        profileFields: [
+            'id',
+            'name',
+            'displayName',
+            'picture',
+            'email',
+            'gender',
+            'birthday',
+            'cover',
+            'age_range',
+            'locale',
+            'timezone'
+        ]
     }, (accessToken, refreshToken, profile, cb) => {
-      User.findOrCreate({facebookId: profile.id}, (err, user) => {
-        return cb(err, user)
-      })
+
+        console.log(profile._json)
+        // let profileData = {
+        //     id: profile.id,
+        //     firstName: profile.name.givenName,
+        //     middleName: profile.name.middleName,
+        //     lastName: profile.name.familyName,
+        //     gender: profile.gender,
+        //     email: profile.emails[0],
+        //     picture: profile.photos[0]
+        // }
+
+        User.findOrCreate({
+            where: {
+                facebookId: profile.id
+            },
+            defaults: {
+                password: ''
+            }
+        }).spread((user, created) => {
+            return cb(null, user)
+        })
     }))
 
+
+
+
     passport.use(new GoogleStrategy({
-    clientID: GOOGLE_CLIENT_ID,
+    clientID:     GOOGLE_CLIENT_ID,
     clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://www.example.com/auth/google/callback"
+    callbackURL: "http://yourdormain:3000/auth/google/callback",
+    passReqToCallback   : true
   },
-  function(accessToken, refreshToken, profile, cb) {
-    User.findOrCreate({ googleId: profile.id }, function (err, user) {
-      return cb(err, user);
-    })
+  function(request, accessToken, refreshToken, profile, done) {
+    User.findOrCreate({ googleId: profile.id },  (err, user) => {
+      return done(err, user);
+    });
   }
-))
+));
+
 
 } //module.exports

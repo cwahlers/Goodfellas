@@ -37,7 +37,6 @@ models.sequelize.sync()
 .catch(err => console.log(err, 'Something went wrong with the Database Update!'))
 
 app.use('/', routes)
-
 app.listen(port)
 
 module.exports = app

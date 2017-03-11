@@ -33,6 +33,9 @@ module.exports = function(sequelize, Sequelize) {
         status: {
             type: Sequelize.ENUM('active', 'inactive'),
             defaultValue: 'active'
+        },
+        facebookId: {
+          type: Sequelize.TEXT
         }
     })
 
