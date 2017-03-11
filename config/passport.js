@@ -113,7 +113,16 @@ module.exports = function(passport, user) {
         ]
     }, (accessToken, refreshToken, profile, cb) => {
 
+        User.findOrCreate({
+            where: {
+                facebookId: profile.id
+            },
+            defaults: {
+                password: ''
+            }
+        }).spread((user, created) => {
+            return cb(null, user)
+        })
+    }))
 
-
-}
 } //module.exports
