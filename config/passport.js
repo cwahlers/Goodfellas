@@ -113,7 +113,8 @@ module.exports = function(passport, user) {
         ]
     }, (accessToken, refreshToken, profile, cb) => {
 
-        console.log(profile._json)
+       let facebookUser = profile._json
+        console.log()
         // let profileData = {
         //     id: profile.id,
         //     firstName: profile.name.givenName,
@@ -139,18 +140,18 @@ module.exports = function(passport, user) {
 
 
 
-    passport.use(new GoogleStrategy({
-    clientID:     GOOGLE_CLIENT_ID,
-    clientSecret: GOOGLE_CLIENT_SECRET,
-    callbackURL: "http://yourdormain:3000/auth/google/callback",
-    passReqToCallback   : true
-  },
-  function(request, accessToken, refreshToken, profile, done) {
-    User.findOrCreate({ googleId: profile.id },  (err, user) => {
-      return done(err, user);
-    });
-  }
-));
+//     passport.use(new GoogleStrategy({
+//     clientID:     GOOGLE_CLIENT_ID,
+//     clientSecret: GOOGLE_CLIENT_SECRET,
+//     callbackURL: "http://yourdormain:3000/auth/google/callback",
+//     passReqToCallback   : true
+//   },
+//   function(request, accessToken, refreshToken, profile, done) {
+//     User.findOrCreate({ googleId: profile.id },  (err, user) => {
+//       return done(err, user);
+//     });
+//   }
+// ));
 
 
 } //module.exports
