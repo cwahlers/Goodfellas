@@ -113,8 +113,7 @@ module.exports = function(passport, user) {
         ]
     }, (accessToken, refreshToken, profile, cb) => {
 
-       let facebookUser = profile._json
-        console.log()
+        let facebookUser = profile._json
         // let profileData = {
         //     id: profile.id,
         //     firstName: profile.name.givenName,
@@ -132,26 +131,21 @@ module.exports = function(passport, user) {
             defaults: {
                 password: ''
             }
-        }).spread((user, created) => {
-            return cb(null, user)
-        })
+        }).spread((user, created) => cb(null, user))
+
     }))
 
-
-
-
-//     passport.use(new GoogleStrategy({
-//     clientID:     GOOGLE_CLIENT_ID,
-//     clientSecret: GOOGLE_CLIENT_SECRET,
-//     callbackURL: "http://yourdormain:3000/auth/google/callback",
-//     passReqToCallback   : true
-//   },
-//   function(request, accessToken, refreshToken, profile, done) {
-//     User.findOrCreate({ googleId: profile.id },  (err, user) => {
-//       return done(err, user);
-//     });
-//   }
-// ));
-
+    //     passport.use(new GoogleStrategy({
+    //     clientID:     GOOGLE_CLIENT_ID,
+    //     clientSecret: GOOGLE_CLIENT_SECRET,
+    //     callbackURL: "http://yourdormain:3000/auth/google/callback",
+    //     passReqToCallback   : true
+    //   },
+    //   function(request, accessToken, refreshToken, profile, done) {
+    //     User.findOrCreate({ googleId: profile.id },  (err, user) => {
+    //       return done(err, user);
+    //     });
+    //   }
+    // ));
 
 } //module.exports
