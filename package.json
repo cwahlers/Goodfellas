@@ -1,7 +1,7 @@
 {
     "name": "goodfellas",
     "version": "1.0.0",
-    "description": "",
+    "description": "A reading app to track and log books.",
     "engines": {
     "node": "7.7.1"
   },
