@@ -16,21 +16,18 @@ router.get('/auth/facebook', passport.authenticate('facebook', {
     scope: ['public_profile', 'email', 'user_friends']
 }))
 
-router.get('/auth/facebook/callback', passport.authenticate('facebook',{
+router.get('/auth/facebook/callback', passport.authenticate('facebook', {
     successRedirect: '/portal',
     failureRedirect: '/login'
 }))
 
-router.get('/auth/google',
-  passport.authenticate('google', { scope:
-    [ 'https://www.googleapis.com/auth/plus.login',
-      'https://www.googleapis.com/auth/plus.profile.emails.read' ] }
-))
+router.get('/auth/google', passport.authenticate('google', {
+    scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/plus.profile.emails.read']
+}))
 
-router.get( '/auth/google/callback',
-    passport.authenticate( 'google', {
-        successRedirect: '/auth/google/success',
-        failureRedirect: '/auth/google/failure'
+router.get('/auth/google/callback', passport.authenticate('google', {
+    successRedirect: '/auth/google/success',
+    failureRedirect: '/auth/google/failure'
 }))
 
 router.post('/register', passport.authenticate('local-register', {
