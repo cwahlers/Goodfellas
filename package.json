@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "description": "A reading app to track and log books.",
     "engines": {
-    "node": "6.0.0",
-    "npm": "4.1.x"
+    "node": "*",
+    "npm": "*"
   },
     "main": "app.js",
     "scripts": {
